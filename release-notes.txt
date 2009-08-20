@@ -1,0 +1,5 @@
+
+v1.1
+ * Next item is selected when item is marked as done
+ * Purge completed action is now first in the actions menu
+ * Actions are auto-saved every time the list is shown (previously only on exit)
