@@ -11,6 +11,7 @@ import com.substanceofcode.gtd.menuactions.DeleteSelectedAction;
 import com.substanceofcode.gtd.menuactions.ExitAction;
 import com.substanceofcode.gtd.menuactions.PurgeTasksAction;
 import com.substanceofcode.gtd.menuactions.ShowAboutAction;
+import com.substanceofcode.gtd.menuactions.ShowSortMenuAction;
 import com.substanceofcode.gtd.menuactions.ShowTasksAction;
 
 /**
@@ -25,6 +26,7 @@ public class ActionsMenu extends MenuCanvas {
             new MenuItem("Purge completed", null, null, new PurgeTasksAction()),
             new MenuItem("New folder", null, null, new AddFolderAction()),
             new MenuItem("Delete selected", null, null, new DeleteSelectedAction()),
+            new MenuItem("Sort", null, null, new ShowSortMenuAction()),
             new MenuItem("Backup to CSV file", null, null, new BackupAction()),
             new MenuItem("About", null,null, new ShowAboutAction()),
             new MenuItem("Quit", null, null, new ExitAction()),
