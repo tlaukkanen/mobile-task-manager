@@ -1,4 +1,7 @@
 
+v1.2
+ * Sort items by name or done-status
+
 v1.1
  * Next item is selected when item is marked as done
  * Purge completed action is now first in the actions menu

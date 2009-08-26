@@ -17,6 +17,7 @@ import com.substanceofcode.gtd.views.FolderTextBox;
 import com.substanceofcode.gtd.views.ItemCanvas;
 import com.substanceofcode.gtd.views.ItemForm;
 import com.substanceofcode.gtd.views.NoteForm;
+import com.substanceofcode.gtd.views.SortMenu;
 import com.substanceofcode.gtd.views.SplashCanvas;
 import com.substanceofcode.gtd.views.TaskMenu;
 import com.substanceofcode.gtd.views.WaitCanvas;
@@ -173,6 +174,10 @@ public class Controller {
         currentFolder = folder;
     }
 
+    public FolderItem getCurrentFolder() {
+        return currentFolder;
+    }
+
     public void moveItemUp(int index) {
         int fix = 0;
         if(currentFolder.getParentFolder()!=null) {
@@ -257,5 +262,10 @@ public class Controller {
     public void showBackupPath() {
         BackupPathTextBox view = new BackupPathTextBox();
         display.setCurrent(view);
+    }
+
+    public void showSortMenu() {
+        SortMenu sortMenu = new SortMenu();
+        display.setCurrent(sortMenu);
     }
 }
