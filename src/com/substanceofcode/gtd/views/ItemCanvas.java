@@ -1,12 +1,25 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2008-2009 Tommi Laukkanen
+ * http://www.substanceofcode.com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.substanceofcode.gtd.views;
 
 import com.substanceofcode.gtd.controllers.Controller;
 import com.substanceofcode.gtd.model.Item;
+import com.substanceofcode.gtd.model.TodoItem;
 import com.substanceofcode.infrastructure.Device;
 import com.substanceofcode.utils.StringUtil;
 import javax.microedition.lcdui.Canvas;
@@ -15,13 +28,14 @@ import javax.microedition.lcdui.Graphics;
 
 /**
  *
- * @author tommi
+ * @author Tommi Laukkanen (tlaukkanen [at] gmail [dot] com) 
  */
 public class ItemCanvas extends Canvas {
 
     private String[] titleLines;
     private String[] bodyLines;
     private Item item;
+    private static final String[] priorities = {"None", "Low", "Normal", "High"};
 
     private int topLine;
     private boolean isBottomVisible;
@@ -64,6 +78,7 @@ public class ItemCanvas extends Canvas {
     protected void paint(Graphics g) {
         drawTitle(g);
         drawBody(g);
+        drawPriority(g);
         drawSoftKeys(g);
     }
 
@@ -125,6 +140,36 @@ public class ItemCanvas extends Canvas {
         }
     }
 
+    private void drawPriority(Graphics g) {
+        /** Draw soft menu labels */
+        int loc = Graphics.BOTTOM|Graphics.LEFT;
+        g.setColor(Theme.BG_COLOR);
+        g.fillRect(0, getHeight()-normalFont.getHeight()*2, getWidth(), normalFont.getHeight());
+        g.setColor(0xaaaaaa);
+        g.drawLine(0, getHeight()-normalFont.getHeight()*2, getWidth(), getHeight()-normalFont.getHeight()*2);
+        g.setFont(normalFont);
+        g.setColor(0x333333);
+        g.drawString("Priority", 0, getHeight()-normalFont.getHeight(), loc);
+        if(item!=null) {
+            String priority = getPriorityString();
+            if(priority!=null) {
+                g.drawString(priority, getWidth()-normalFont.stringWidth(priority), getHeight()-normalFont.getHeight(), loc);
+            }
+        }
+    }
+
+    private String getPriorityString() {
+        int priority = 0;
+        if(item.hasChildren()==false) {
+            TodoItem todo = (TodoItem)item;
+            priority = todo.getPriority();
+        }
+        if(priority>=0 && priority<priorities.length) {
+            return priorities[priority];
+        }
+        return "Unknown";
+    }
+
     /** Draw soft key indicators */
     private void drawSoftKeys(Graphics g) {
         /** Draw soft menu labels */
@@ -171,14 +216,14 @@ public class ItemCanvas extends Canvas {
 
     private void handleUpAndDown(int keyCode) {
         int gameCode = getGameAction(keyCode);
-        if( gameCode == this.UP) {
+        if( gameCode == Canvas.UP) {
             topLine--;
             if(topLine<0) {
                 topLine = 0;
             }
             repaint();
         }
-        if( gameCode == this.DOWN) {
+        if( gameCode == Canvas.DOWN) {
             if(isBottomVisible==false) {
                 topLine++;
                 if(topLine>bodyLines.length-1) {
@@ -187,23 +232,29 @@ public class ItemCanvas extends Canvas {
             }
             repaint();
         }
-  /*      if( gameCode == this.LEFT ) {
-            if(showActionBar) {
-                actionBar.selectPreviousAction();
-                repaint();
-            } else {
-                controller.showItem(itemIndex-1);
+        if( gameCode == Canvas.LEFT ) {
+            if(item.hasChildren()==false) {
+                TodoItem todo = (TodoItem)item;
+                int priority = todo.getPriority();
+                if(priority>0) {
+                    priority--;
+                }
+                todo.setPriority(priority);
             }
+            repaint();
         }
-        if( gameCode == this.RIGHT ) {
-            if(showActionBar) {
-                actionBar.selectNextAction();
-                repaint();
-            } else {
-                controller.showItem(itemIndex+1);
+        if( gameCode == Canvas.RIGHT ) {
+            if(item.hasChildren()==false) {
+                TodoItem todo = (TodoItem)item;
+                int priority = todo.getPriority();
+                if(priority<3) {
+                    priority++;
+                }
+                todo.setPriority(priority);
             }
+            repaint();
         }
-   */     if( gameCode == ItemCanvas.FIRE ) {
+        if( gameCode == ItemCanvas.FIRE ) {
             Controller.getInstance().showMainList();
         }
     }

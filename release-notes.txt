@@ -1,6 +1,12 @@
 
 v1.2
- * Sort items by name or done-status
+ * Todo items can have priority (None, Low, Normal, High)
+ * Pressing '0' will change priority of selected todo item
+ * Sort items by name, done-status or priority
+ * Import items from text or CSV file
+ * FIX: pressing '3' causes the item below the one highlighted to open up for editing
+ * FIX: "Delete selected" will not delete the last entry on a folder.
+ * FIX: pressing '9' does not work for quick note editing
 
 v1.1
  * Next item is selected when item is marked as done
