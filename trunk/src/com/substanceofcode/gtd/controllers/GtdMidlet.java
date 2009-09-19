@@ -24,7 +24,7 @@ import javax.microedition.midlet.MIDletStateChangeException;
 
 /**
  *
- * @author Tommi Laukkanen (tlaukkanen at gmail dot com)
+ * @author Tommi Laukkanen (tlaukkanen [at] gmail [dot] com)  Laukkanen (tlaukkanen at gmail dot com)
  */
 public class GtdMidlet extends MIDlet {
 

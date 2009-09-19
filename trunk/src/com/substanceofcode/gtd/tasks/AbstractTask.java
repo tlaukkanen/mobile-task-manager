@@ -21,7 +21,7 @@ package com.substanceofcode.gtd.tasks;
 
 /**
  *
- * @author Tommi Laukkanen (tlaukkanen at gmail dot com)
+ * @author Tommi Laukkanen (tlaukkanen [at] gmail [dot] com)  Laukkanen (tlaukkanen at gmail dot com)
  */
 public abstract class AbstractTask implements Runnable {
     

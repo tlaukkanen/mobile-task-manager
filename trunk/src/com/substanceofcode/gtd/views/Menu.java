@@ -25,7 +25,7 @@ import javax.microedition.lcdui.Image;
 
 /**
  * Menu implementation that will render an overlay menu.
- * @author Tommi Laukkanen
+ * @author Tommi Laukkanen (tlaukkanen [at] gmail [dot] com)  Laukkanen
  */
 public class Menu {
 
@@ -134,7 +134,9 @@ public class Menu {
             if(alignLeft==false) {
                 col = screenWidth/2 - labelWidth/2;
             }
-            g.drawString(label, col, top + (menuIndex+2)*LABEL_FONT.getHeight(), Graphics.LEFT|Graphics.BOTTOM);
+            if(label!=null) {
+                g.drawString(label, col, top + (menuIndex+2)*LABEL_FONT.getHeight(), Graphics.LEFT|Graphics.BOTTOM);
+            }
 
             if(showIcon) {
                 Image logo = items[menuIndex].getIcon();

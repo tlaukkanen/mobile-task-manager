@@ -1,6 +1,18 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2008-2009 Tommi Laukkanen
+ * http://www.substanceofcode.com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.substanceofcode.gtd.views;
@@ -20,7 +32,7 @@ import javax.microedition.lcdui.Image;
 
 /**
  *
- * @author tommi
+ * @author Tommi Laukkanen (tlaukkanen [at] gmail [dot] com) 
  */
 public class TaskMenu extends MenuCanvas {
 
@@ -28,15 +40,14 @@ public class TaskMenu extends MenuCanvas {
     private FolderItem currentFolder;
 
     public TaskMenu() {
-        super(
-                "Main",
-                null);
+        super("Main", null);
         menu.alignLeft(true);
         menu.setPadding(0);
         menu.showIcon(true);
     }
 
     protected void paint(Graphics g) {
+        try {
         super.paint(g);
 
         /** Draw soft menu labels */
@@ -49,6 +60,9 @@ public class TaskMenu extends MenuCanvas {
         g.setColor(0x000000);
         g.drawString("Menu", 0, getHeight(), loc);
         g.drawString("Add", getWidth()-MENU_FONT.stringWidth("Add"), getHeight(), loc);
+        } catch(Exception ex) {
+            Controller.getInstance().showError(ex);
+        }
     }
 
     protected void keyPressed(int keyCode) {
@@ -93,7 +107,7 @@ public class TaskMenu extends MenuCanvas {
             if(currentFolder!=null && currentFolder.getParentFolder()!=null) {
                 fix=-1;
             }
-            Controller.getInstance().edit(index);
+            Controller.getInstance().edit(index+fix);
         } else if( keyCode==Canvas.KEY_NUM7) {
             MenuItem selectedMenuItem = menu.getSelectedItem();
             if(selectedMenuItem!=null && selectedMenuItem.getTag()!=null) {
@@ -101,6 +115,16 @@ public class TaskMenu extends MenuCanvas {
                 item.toggleFavorite();
             }
             Controller.getInstance().showMainList();
+        } else if( keyCode==Canvas.KEY_NUM9) {
+            Item item = (Item)menu.getSelectedItem().getTag();
+            Controller.getInstance().showNoteForm(item);
+        } else if( keyCode==Canvas.KEY_NUM0) {
+            Item item = (Item)menu.getSelectedItem().getTag();
+            if(item.hasChildren()==false) {
+                TodoItem todo = (TodoItem)item;
+                todo.stepPriority();
+                Controller.getInstance().showMainList();
+            }
         }
     }
 
@@ -147,6 +171,13 @@ public class TaskMenu extends MenuCanvas {
 
     private Image[] getStatusImages(Item item) {
         Vector imagesVector = new Vector();
+        if(item.hasChildren()==false) {
+            TodoItem todo = (TodoItem)item;
+            int priority = todo.getPriority();
+            if(priority>0) {
+                imagesVector.addElement( getPriorityImage(priority) );
+            }
+        }
         if(item.isFavorite()) {
             imagesVector.addElement(ImageRepository.getStar());
         }
@@ -158,6 +189,19 @@ public class TaskMenu extends MenuCanvas {
             images[imgIndex] = (Image) imagesVector.elementAt(imgIndex);
         }
         return images;
+    }
+
+    private Image getPriorityImage(int priority) {
+        switch(priority) {
+            case(1):
+                return ImageRepository.getGreenFlag();
+            case(2):
+                return ImageRepository.getYellowFlag();
+            case(3):
+                return ImageRepository.getRedFlag();
+            default:
+                return null;
+        }
     }
 
     public void deleteSelected() {

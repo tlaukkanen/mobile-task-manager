@@ -25,7 +25,7 @@ package com.substanceofcode.infrastructure;
 
 /**
  *
- * @author Tommi Laukkanen (tlaukkanen at gmail dot com)
+ * @author Tommi Laukkanen (tlaukkanen [at] gmail [dot] com)  Laukkanen (tlaukkanen at gmail dot com)
  */
 public class Device {
 

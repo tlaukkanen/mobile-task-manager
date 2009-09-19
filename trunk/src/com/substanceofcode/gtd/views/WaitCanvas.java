@@ -19,6 +19,7 @@
 
 package com.substanceofcode.gtd.views;
 
+import com.substanceofcode.gtd.controllers.Controller;
 import com.substanceofcode.gtd.tasks.AbstractTask;
 import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Font;
@@ -26,13 +27,14 @@ import javax.microedition.lcdui.Graphics;
 
 /**
  *
- * @author Tommi
+ * @author Tommi Laukkanen (tlaukkanen [at] gmail [dot] com) 
  */
-public class WaitCanvas extends Canvas {
+public class WaitCanvas extends Canvas implements Runnable {
     
     private String waitText;
     private AbstractTask task;
     private Font statusFont;
+    private Thread thread;
     
     private final Font titleFont = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_MEDIUM);
      
@@ -50,6 +52,8 @@ public class WaitCanvas extends Canvas {
         this.waitText = "Please wait...";
         this.task = task;
         statusFont = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_SMALL);
+        thread = new Thread(this);
+        thread.start();   
     }
     
     protected void paint(Graphics g) {
@@ -70,7 +74,19 @@ public class WaitCanvas extends Canvas {
     }
 
     public void run() {
-        task.execute(); 
+        try {
+            Thread.sleep(500);
+            this.repaint();
+            Thread.yield();
+            task.execute();
+            while(Controller.getInstance().getCurrentDisplay() == this) {
+                Thread.sleep(500);
+                waitText += ".";
+                this.repaint();
+            }
+        } catch(Exception ex) {
+            Controller.getInstance().showError("Error while running task " + ex.getMessage());
+        }
     }
     
 }

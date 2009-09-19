@@ -6,13 +6,17 @@ package com.substanceofcode.gtd.controllers;
 
 import com.substanceofcode.data.FileIOException;
 import com.substanceofcode.data.FileSystem;
+import com.substanceofcode.gtd.model.FileSelect;
 import com.substanceofcode.gtd.model.FolderItem;
+import com.substanceofcode.gtd.model.ImportFileSelect;
 import com.substanceofcode.gtd.model.Item;
 import com.substanceofcode.gtd.model.TodoItem;
+import com.substanceofcode.gtd.tasks.AbstractTask;
 import com.substanceofcode.gtd.tasks.BackupTask;
 import com.substanceofcode.gtd.views.AboutCanvas;
 import com.substanceofcode.gtd.views.ActionsMenu;
 import com.substanceofcode.gtd.views.BackupPathTextBox;
+import com.substanceofcode.gtd.views.FileBrowserCanvas;
 import com.substanceofcode.gtd.views.FolderTextBox;
 import com.substanceofcode.gtd.views.ItemCanvas;
 import com.substanceofcode.gtd.views.ItemForm;
@@ -33,7 +37,7 @@ import javax.microedition.midlet.MIDlet;
 
 /**
  *
- * @author tommi
+ * @author Tommi Laukkanen (tlaukkanen [at] gmail [dot] com) 
  */
 public class Controller {
 
@@ -165,7 +169,7 @@ public class Controller {
         if(currentFolder.getParentFolder()!=null) {
             fix = -1;
         }
-        if (index < currentFolder.getItems().size()) {
+        if (index+fix < currentFolder.getItems().size()) {
             currentFolder.getItems().removeElementAt(index+fix);
         }
     }
@@ -174,7 +178,7 @@ public class Controller {
         currentFolder = folder;
     }
 
-    public FolderItem getCurrentFolder() {
+    public synchronized FolderItem getCurrentFolder() {
         return currentFolder;
     }
 
@@ -247,16 +251,12 @@ public class Controller {
     }
 
     public void showError(Exception ex) {
-        Alert alert = new Alert("Error " + ex.getMessage());
-        alert.setType(AlertType.ERROR);
-        display.setCurrent(alert, taskMenu);
+        showError(ex.getMessage());
     }
 
     public void backup(String path) {
         BackupTask task = new BackupTask(rootFolder, path);
-        WaitCanvas wait = new WaitCanvas(task);
-        wait.run();
-        display.setCurrent(wait);
+        activateTask(task, "Exporting to " + path);
     }
 
     public void showBackupPath() {
@@ -267,5 +267,32 @@ public class Controller {
     public void showSortMenu() {
         SortMenu sortMenu = new SortMenu();
         display.setCurrent(sortMenu);
+    }
+
+    public void showError(String err) {
+        Alert alert = new Alert("Error", err, null, AlertType.ERROR);
+        alert.setTimeout(0);
+        display.setCurrent(alert, taskMenu);
+    }
+
+    public void showImportFileSelection() {
+        FileSelect select = new ImportFileSelect();
+        FileBrowserCanvas fileBrowserCanvas = new FileBrowserCanvas( select );
+        fileBrowserCanvas.loadRoots();
+        display.setCurrent(fileBrowserCanvas);
+    }
+
+    public void activateTask(AbstractTask task, String statusText) {
+        try {
+            WaitCanvas wait = new WaitCanvas(task);
+            wait.setWaitText(statusText);
+            display.setCurrent(wait);
+        } catch(Exception ex) {
+            showError("Error while activating task " + ex.getMessage());
+        }
+    }
+
+    public FolderItem getRootFolder() {
+        return this.rootFolder;
     }
 }

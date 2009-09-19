@@ -24,7 +24,7 @@ import javax.microedition.lcdui.Image;
 /**
  * Image utility for loading images from resources.
  *
- * @author Tommi Laukkanen
+ * @author Tommi Laukkanen (tlaukkanen [at] gmail [dot] com)  Laukkanen
  */
 public class ImageUtil {
     

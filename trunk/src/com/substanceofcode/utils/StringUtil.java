@@ -24,7 +24,7 @@ import javax.microedition.lcdui.Font;
 
 /**
  *
- * @author Tommi Laukkanen (tlaukkanen at gmail dot com)
+ * @author Tommi Laukkanen (tlaukkanen [at] gmail [dot] com)  Laukkanen (tlaukkanen at gmail dot com)
  */
 public class StringUtil {
 

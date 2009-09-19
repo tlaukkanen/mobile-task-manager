@@ -22,7 +22,7 @@ package com.substanceofcode.utils;
 /**
  * Log
  * 
- * @author Tommi Laukkanen (tlaukkanen at gmail dot com)
+ * @author Tommi Laukkanen (tlaukkanen [at] gmail [dot] com)  Laukkanen (tlaukkanen at gmail dot com)
  */
 public class Log {
     
