@@ -67,10 +67,16 @@ public class ImportTask extends AbstractTask {
             } else {
                 separator = "\r";
             }
+
             String[] lines = StringUtil.split(text, separator);
             for(int i=0; i<lines.length; i++) {
                 handleLine(lines[i]);
             }
+
+            /*TodoItem item = new TodoItem("debug " + lines.length);
+            item.setNote(text);
+            root.addItem(item);*/
+
         } catch(Exception ex) {
             Controller.getInstance().showError("File: " + path + " Exception: " + ex.getMessage());
             return;
@@ -81,16 +87,18 @@ public class ImportTask extends AbstractTask {
     /**
      * Handle one line in imported file. Both plain text and CSV lines are
      * processed.
-     * @param line
+     * @param line in format Action;Done;Folder;Favorite;Details
      */
     private void handleLine(String line) {
-        if(line==null || line.length()==0) {
+        if(line==null || line.length()==0 || line.startsWith("Action")) {
             return;
         }
         line = StringUtil.replace(line, "\n", "");
         line = StringUtil.replace(line, "\r", "");
         String[] cols = StringUtil.split(line, ";");
         if(cols==null || cols.length<1) {
+            /*TodoItem item = new TodoItem("no cols");
+            root.addItem(item);*/
             return;
         }
         if(cols.length==1) {
@@ -109,11 +117,14 @@ public class ImportTask extends AbstractTask {
             if(cols.length>2) {
                 // Subfolder
                 String subfolderName = cols[2];
-                if(subFolders.containsKey(subfolderName)) {
-                    subfolder = (FolderItem)subFolders.get(subfolderName);
-                } else {
-                    subfolder = new FolderItem(subfolderName, root);
-                    subFolders.put(subfolderName, subfolder);
+                if(subfolderName!=null && subfolderName.length()>0) {
+                    if(subFolders.containsKey(subfolderName)) {
+                        subfolder = (FolderItem)subFolders.get(subfolderName);
+                    } else {
+                        subfolder = new FolderItem(subfolderName, root);
+                        subFolders.put(subfolderName, subfolder);
+                        root.addItem(subfolder);
+                    }
                 }
             }
             if(cols.length>3) {

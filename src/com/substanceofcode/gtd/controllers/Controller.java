@@ -87,6 +87,7 @@ public class Controller {
     public void showSplash() {
         SplashCanvas splash = new SplashCanvas();
         display.setCurrent(splash);
+        splash.startDelay();
     }
 
     public void showMainList() {

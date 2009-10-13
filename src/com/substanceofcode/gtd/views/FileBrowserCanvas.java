@@ -212,7 +212,6 @@ public class FileBrowserCanvas extends Canvas  {
             } else {
                 /** Select file */
                 this.fileSelect.select(fc.getURL());
-                Controller.getInstance().showMainList();
                 return;
             }
         } catch (IOException ex) {

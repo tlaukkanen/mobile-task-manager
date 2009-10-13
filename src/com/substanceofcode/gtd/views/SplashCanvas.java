@@ -45,11 +45,12 @@ public class SplashCanvas extends Canvas implements Runnable {
      */
     public SplashCanvas() {
         this.setFullScreenMode(true);
-        
         logoImage = ImageUtil.loadImage("/images/logo.png");
-        
-        waitThread = new Thread(this);
-        waitThread.run();
+    }
+
+    public void startDelay() {
+        waitThread = new Thread( this );
+        waitThread.start();
     }
 
     protected void paint(Graphics g) {
@@ -76,16 +77,7 @@ public class SplashCanvas extends Canvas implements Runnable {
      * @param keyCode 
      */
     protected void keyPressed(int keyCode) {
-        if(keyCode==Canvas.KEY_NUM9) {
-            try {
-                System.out.println("Formatting...");
-                FileSystem.getFileSystem().formatFileSystem();
-            } catch (FileIOException ex) {
-                ex.printStackTrace();
-            }
-        } else {
-            showNextView();
-        }
+        showNextView();
     }
     
     private void showNextView() {
@@ -94,13 +86,14 @@ public class SplashCanvas extends Canvas implements Runnable {
 
     public void run() {
         try {
-            Thread.sleep(4000);
-            if(this==Controller.getInstance().getCurrentDisplay()) {
-                showNextView();
-            }
+            this.repaint();
+            Thread.sleep(3000);
+            System.out.println("Switching view...");
+            showNextView();
         }catch(Exception ex) {
             Log.error("Error in splash screen: " + ex.getMessage());
         }
     }
+
 
 }

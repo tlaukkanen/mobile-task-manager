@@ -44,7 +44,6 @@ public class BackupPathTextBox extends TextBox implements CommandListener {
         if(cmd==okCommand) {
             String path = getString();
             Controller.getInstance().backup(path);
-            Controller.getInstance().showMainList();
         }
         if(cmd==cancelCommand) {
             Controller.getInstance().showMainList();
