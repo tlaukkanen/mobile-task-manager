@@ -1,5 +1,5 @@
 
-v1.2
+v1.2 September 19th, 2009
  * Todo items can have priority (None, Low, Normal, High)
  * Pressing '0' will change priority of selected todo item
  * Sort items by name, done-status or priority

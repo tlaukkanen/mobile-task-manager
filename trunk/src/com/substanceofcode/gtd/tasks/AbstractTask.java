@@ -33,6 +33,7 @@ public abstract class AbstractTask implements Runnable {
     }
 
     public void run() {
+        Thread.yield();
         doTask();
     }
     

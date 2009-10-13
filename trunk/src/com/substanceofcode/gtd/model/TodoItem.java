@@ -20,6 +20,7 @@ package com.substanceofcode.gtd.model;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.Date;
 
 /**
  *
@@ -32,6 +33,17 @@ public class TodoItem extends Item {
     /** Priority of item */
     private int priority;
     private static final int PRIORITY_MAX = 3;
+    /** Due date */
+    private boolean hasDueDate;
+    private Date dueDate;
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
     
     public TodoItem(String name) {
         setName(name);
@@ -62,12 +74,16 @@ public class TodoItem extends Item {
     }
 
     public void serialize(DataOutputStream dos) throws IOException {
-        dos.writeInt(2); // Version
+        dos.writeInt(3); // Version
         dos.writeUTF(getName());
         dos.writeUTF(getNote());
         dos.writeInt(getStatus());
         dos.writeBoolean(done);
         dos.writeInt(priority);
+        dos.writeBoolean(hasDueDate);
+        if(hasDueDate) {
+            dos.writeLong(dueDate.getTime());
+        }
     }
 
     public void unserialize(DataInputStream dis) throws IOException {
@@ -83,6 +99,16 @@ public class TodoItem extends Item {
             setStatus(dis.readInt());
             setDone(dis.readBoolean());
             setPriority(dis.readInt());
+        } else if(version==3) {
+            setName(dis.readUTF());
+            setNote(dis.readUTF());
+            setStatus(dis.readInt());
+            setDone(dis.readBoolean());
+            setPriority(dis.readInt());
+            hasDueDate = dis.readBoolean();
+            if(hasDueDate) {
+                setDueDate(new Date(dis.readLong()));
+            }
         }
     }
 

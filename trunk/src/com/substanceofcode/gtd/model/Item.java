@@ -18,6 +18,7 @@
 package com.substanceofcode.gtd.model;
 
 import com.substanceofcode.data.Serializable;
+import java.util.Date;
 
 /**
  *

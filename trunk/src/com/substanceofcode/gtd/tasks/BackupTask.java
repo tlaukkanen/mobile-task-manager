@@ -49,14 +49,15 @@ public class BackupTask extends AbstractTask {
             fc = (FileConnection)Connector.open("file:///" + path, Connector.WRITE);
             fc.create();
             DataOutputStream dos = fc.openDataOutputStream();
-            dos.writeUTF("Action;Done;Folder;Favorite;Details\r\n");
-            writeItem(root, "Main", dos);
+            writeAscii(dos,"Action;Done;Folder;Favorite;Details\r\n");
+            writeItem(root, "", dos);
             dos.flush();
             dos.close();
             fc.close();
         } catch(Exception ex) {
             Controller.getInstance().showError(ex);
         }
+        Controller.getInstance().showMainList();
     }
 
     private void writeItem(Item item, String folder, DataOutputStream dos) throws IOException {
@@ -64,9 +65,16 @@ public class BackupTask extends AbstractTask {
         if(item.hasChildren()==false) {
             TodoItem todo = (TodoItem)item;
             done = todo.isDone();
-        }
-        dos.writeUTF(item.getName() + ";" + (done ? "X":"") + ";" + folder + ";"+ (item.isFavorite() ? "X" : "") + ";" + item.getNote() + "\r\n");
-        if(item.hasChildren()) {
+            String folderValue = folder;
+            if(folder.equals("Main")) {
+                folderValue = "";
+            }
+            writeAscii(dos, item.getName() + ";" + 
+                    (done ? "X":"") + ";" +
+                    folderValue + ";"+
+                    (item.isFavorite() ? "X" : "") + ";" +
+                    item.getNote() + "\r\n");
+        } else {
             FolderItem folderItem = (FolderItem)item;
             Vector items = folderItem.getItems();
             Enumeration en = items.elements();
@@ -74,6 +82,14 @@ public class BackupTask extends AbstractTask {
                 Item it = (Item)en.nextElement();
                 writeItem(it, item.getName(), dos);
             }
+        }
+    }
+
+    private void writeAscii(DataOutputStream dos, String line) throws IOException {
+        char c;
+        for(int i=0; i<line.length(); i++) {
+            c = line.charAt(i);
+            dos.writeByte((int)c);
         }
     }
 

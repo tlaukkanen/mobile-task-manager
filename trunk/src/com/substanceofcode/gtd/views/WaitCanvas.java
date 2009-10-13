@@ -75,6 +75,7 @@ public class WaitCanvas extends Canvas implements Runnable {
 
     public void run() {
         try {
+            this.repaint();
             Thread.sleep(500);
             this.repaint();
             Thread.yield();
