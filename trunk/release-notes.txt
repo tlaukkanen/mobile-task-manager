@@ -1,3 +1,8 @@
+v1.4 xxx, 2009
+ * FIX: Don't crash when backup file already exists. Display readable error.
+
+v1.3
+ * Improved start-up time
 
 v1.2 September 19th, 2009
  * Todo items can have priority (None, Low, Normal, High)

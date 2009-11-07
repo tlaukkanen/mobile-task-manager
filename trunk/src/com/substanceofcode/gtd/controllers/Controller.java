@@ -272,7 +272,7 @@ public class Controller {
 
     public void showError(String err) {
         Alert alert = new Alert("Error", err, null, AlertType.ERROR);
-        alert.setTimeout(0);
+        alert.setTimeout(10000);
         display.setCurrent(alert, taskMenu);
     }
 
