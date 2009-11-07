@@ -27,6 +27,8 @@ import java.util.Enumeration;
 import java.util.Vector;
 import javax.microedition.io.Connector;
 import javax.microedition.io.file.FileConnection;
+import javax.microedition.lcdui.Alert;
+import javax.microedition.lcdui.AlertType;
 
 /**
  * CSV file exporter. CSV file format:
@@ -46,7 +48,11 @@ public class BackupTask extends AbstractTask {
     public void doTask() {
         FileConnection fc;
         try{
-            fc = (FileConnection)Connector.open("file:///" + path, Connector.WRITE);
+            fc = (FileConnection)Connector.open("file:///" + path, Connector.READ_WRITE);
+            if(fc.exists()) {
+                Controller.getInstance().showError("File already exists. Please use different filename.");
+                return;
+            }
             fc.create();
             DataOutputStream dos = fc.openDataOutputStream();
             writeAscii(dos,"Action;Done;Folder;Favorite;Details\r\n");
@@ -56,6 +62,7 @@ public class BackupTask extends AbstractTask {
             fc.close();
         } catch(Exception ex) {
             Controller.getInstance().showError(ex);
+            return;
         }
         Controller.getInstance().showMainList();
     }
