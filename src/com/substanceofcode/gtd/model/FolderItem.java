@@ -54,6 +54,22 @@ public class FolderItem extends Item {
         return true;
     }
 
+    /**
+     * Check if given item is already in this folder.
+     * @param itemToCheck
+     * @return true if item is already in this folder.
+     */
+    public boolean contains(Item itemToCheck) {
+        Enumeration it = items.elements();
+        while(it.hasMoreElements()) {
+            Item item = (Item)it.nextElement();
+            if(item.getName().equals( itemToCheck.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void addItem(Item item) {
         items.addElement(item);
     }

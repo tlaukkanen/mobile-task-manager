@@ -26,7 +26,7 @@ package com.substanceofcode.gtd.views;
  */
 public class Theme {
 
-    public static final int BG_COLOR = 0xF0F2F5;
+    public static final int BG_COLOR = 0xF4F7F9;
     
     /** Creates a new instance of Theme */
     private Theme() {

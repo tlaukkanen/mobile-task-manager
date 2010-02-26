@@ -21,14 +21,13 @@ import com.substanceofcode.gtd.controllers.Controller;
 import com.substanceofcode.gtd.model.FolderItem;
 import com.substanceofcode.gtd.model.Item;
 import com.substanceofcode.gtd.model.TodoItem;
+import com.substanceofcode.utils.StringUtil;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Vector;
 import javax.microedition.io.Connector;
 import javax.microedition.io.file.FileConnection;
-import javax.microedition.lcdui.Alert;
-import javax.microedition.lcdui.AlertType;
 
 /**
  * CSV file exporter. CSV file format:
@@ -76,11 +75,16 @@ public class BackupTask extends AbstractTask {
             if(folder.equals("Main")) {
                 folderValue = "";
             }
+
+            String note = item.getNote();
+            note = StringUtil.replace(note, "\r", "");
+            note = StringUtil.replace(note, "\n", "");
+
             writeAscii(dos, item.getName() + ";" + 
                     (done ? "X":"") + ";" +
                     folderValue + ";"+
                     (item.isFavorite() ? "X" : "") + ";" +
-                    item.getNote() + "\r\n");
+                    note + "\r\n");
         } else {
             FolderItem folderItem = (FolderItem)item;
             Vector items = folderItem.getItems();
