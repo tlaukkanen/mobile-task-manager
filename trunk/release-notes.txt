@@ -1,5 +1,8 @@
-v1.4 xxx, 2009
+v1.4 February 26th, 2010
  * FIX: Don't crash when backup file already exists. Display readable error.
+ * FIX: Don't export new line characters in notes as it invalidates the CSV.
+ * Don't add duplicates when importing items from CSV.
+ * Bit more touch friendly
 
 v1.3
  * Improved start-up time

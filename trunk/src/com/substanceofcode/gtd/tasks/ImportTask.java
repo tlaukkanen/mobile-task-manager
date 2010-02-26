@@ -21,10 +21,13 @@ package com.substanceofcode.gtd.tasks;
 
 import com.substanceofcode.gtd.controllers.Controller;
 import com.substanceofcode.gtd.model.FolderItem;
+import com.substanceofcode.gtd.model.Item;
 import com.substanceofcode.gtd.model.TodoItem;
 import com.substanceofcode.utils.StringUtil;
 import java.io.DataInputStream;
+import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Vector;
 import javax.microedition.io.Connector;
 import javax.microedition.io.file.FileConnection;
 
@@ -42,6 +45,18 @@ public class ImportTask extends AbstractTask {
         this.path = path;
         this.root = root;
         this.subFolders = new Hashtable();
+
+        // Initialize sub folders for duplicate checking
+        Vector rootItems = root.getItems();
+        Enumeration it = rootItems.elements();
+        while(it.hasMoreElements()) {
+            Item item = (Item)it.nextElement();
+            if(item.hasChildren()) {
+                FolderItem subFolder = (FolderItem)item;
+                subFolders.put(subFolder.getName(), subFolder);
+            }
+        }
+
     }
 
     /**
@@ -103,7 +118,9 @@ public class ImportTask extends AbstractTask {
         }
         if(cols.length==1) {
             TodoItem item = new TodoItem(line);
-            root.addItem(item);
+            if(root.contains(item)==false) {
+                root.addItem(item);
+            }
         } else {
             FolderItem subfolder = null;
             String name = (cols[0]==null?"":cols[0]);
@@ -139,9 +156,13 @@ public class ImportTask extends AbstractTask {
                 item.setNote(note);
             }
             if(subfolder==null) {
-                root.addItem(item);
+                if(root.contains(item)==false) {
+                    root.addItem(item);
+                }
             } else {
-                subfolder.addItem(item);
+                if(subfolder.contains(item)==false) {
+                    subfolder.addItem(item);
+                }
             }
         }
     }

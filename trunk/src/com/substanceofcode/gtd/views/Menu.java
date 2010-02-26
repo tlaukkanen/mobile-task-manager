@@ -46,9 +46,8 @@ public class Menu {
     private static final Font TITLE_FONT = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_MEDIUM);
     private static final Font LABEL_FONT = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM);
     private static final int BACK_COLOR = 0xdddddd;
-    private static final int SELECTED_COLOR = 0xffffff;
+    private static final int SELECTED_COLOR = 0xaaaaaa;
     private static final int FONT_COLOR = 0x000000;
-    private static final int BORDER_COLOR = 0x666666;
     
     /** Create new Menu instance 
      * @param labels        
@@ -97,13 +96,11 @@ public class Menu {
             }
         }
 
-        /** Draw background and borders */
+        /** Fill title background */
         g.setColor(BACK_COLOR);
-        g.fillRect(padding-1, top-2, screenWidth-(padding*2-2), height+4);
-        //g.setColor(BORDER_COLOR);
-        //g.drawRect(padding-1, top-2, screenWidth-(padding*2-2), height+4);
+        g.fillRect(padding-1, top, screenWidth-(padding*2-2), LABEL_FONT.getHeight()+2);// height+4);
         
-        /** Draw menu items */
+        /** Draw title */
         g.setColor(FONT_COLOR);
         g.setFont(TITLE_FONT);
 
@@ -114,6 +111,7 @@ public class Menu {
             Graphics.LEFT|Graphics.BOTTOM);
         g.setFont(LABEL_FONT);
 
+        /** Draw items */
         g.setColor(FONT_COLOR);
         int col = (alignLeft ? padding+2 : 0 );
         int picRow = 0;
@@ -192,8 +190,13 @@ public class Menu {
     }
 
     public void activateSelected() {
-        if(items!=null && items[ getSelectedIndex() ]!=null) {
-            items[ getSelectedIndex() ].activate();
+        System.out.println("Activating selected");
+        int selected = getSelectedIndex();
+        System.out.println("Selected index " + selected);
+        System.out.println("Items " + items.length);
+        if(items!=null && items.length>selected && items[ selected ]!=null) {
+            System.out.println("Activate()");
+            items[ selected ].activate();
         }
     }
     
@@ -237,6 +240,17 @@ public class Menu {
         screenHeight = height;
         screenWidth = width;
         calculateSize();
+    }
+
+    /**
+     * Select menu item with touch screen
+     * @param x coordinate
+     * @param y coordinate
+     */
+    public void selectWithPointer(int x, int y, boolean isPress) {
+        int canvasY = y - top;
+        int pointerIndex = canvasY / rowHeight - 1;
+        selectedIndex = pointerIndex;
     }
     
 }

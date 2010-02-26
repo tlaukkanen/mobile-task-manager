@@ -71,5 +71,35 @@ public abstract class MenuCanvas extends Canvas {
         menu.setTitle(title);
     }
 
+    /**
+     * Handle touch screen press
+     * @param x coordinate
+     * @param y coordinate
+     */
+    protected void pointerPressed(int x, int y) {
+        menu.selectWithPointer(x, y, true);
+        repaint();
+    }
+
+    /**
+     * Handle touch screen drag
+     * @param x coordinate
+     * @param y coordinate
+     */
+    protected void pointerDragged(int x, int y) {
+        menu.selectWithPointer(x, y, false);
+        repaint();
+    }
+
+    /**
+     * Handle touch screen release
+     * @param x coordinate
+     * @param y coordinate
+     */
+    protected void pointerReleased(int x, int y) {
+        menu.selectWithPointer(x, y, false);
+        menu.activateSelected();
+    }
+
     
 }

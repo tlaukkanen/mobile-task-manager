@@ -39,7 +39,7 @@ public class AboutCanvas extends Canvas {
         setFullScreenMode(true);
         String[] lines = {
             "Mobile Task Manager",
-            "Copyright 2009 Tommi Laukkanen http://www.substanceofcode.com",
+            "Copyright 2009-2010 Tommi Laukkanen http://www.substanceofcode.com",
             "",
             "Icons from Mark James from famfamfam.com",
             "Splash screen icon from Max Brown from orangeyear.com"};
