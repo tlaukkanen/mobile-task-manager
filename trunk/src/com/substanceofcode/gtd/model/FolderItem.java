@@ -74,6 +74,16 @@ public class FolderItem extends Item {
         items.addElement(item);
     }
 
+    public void addItemAfter(Item item, int index) {
+        index++;
+        if (index < 0)
+            index = 0;
+        if (index > items.size())
+            index = items.size();
+
+        items.insertElementAt(item, index);
+    }
+
     public String getMimeType() {
         return "text/plain";
     }

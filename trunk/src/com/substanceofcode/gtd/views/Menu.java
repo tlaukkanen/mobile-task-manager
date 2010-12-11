@@ -173,6 +173,14 @@ public class Menu {
         return selectedIndex;
     }
 
+    public void setSelectedIndex(int index) {
+        if (index < 0)
+            index = 0;
+         if (index >= items.length)
+            index = items.length-1;
+        selectedIndex = index;
+    }
+
     MenuItem getSelectedItem() {
         if(items==null) {
             return null;

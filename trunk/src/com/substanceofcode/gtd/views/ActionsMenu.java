@@ -20,6 +20,8 @@ package com.substanceofcode.gtd.views;
 import com.substanceofcode.gtd.menuactions.AddFolderAction;
 import com.substanceofcode.gtd.menuactions.BackupAction;
 import com.substanceofcode.gtd.menuactions.DeleteSelectedAction;
+import com.substanceofcode.gtd.menuactions.CutSelectedAction;
+import com.substanceofcode.gtd.menuactions.PasteAction;
 import com.substanceofcode.gtd.menuactions.ExitAction;
 import com.substanceofcode.gtd.menuactions.ImportAction;
 import com.substanceofcode.gtd.menuactions.PurgeTasksAction;
@@ -39,6 +41,8 @@ public class ActionsMenu extends MenuCanvas {
             new MenuItem("Purge completed", null, null, new PurgeTasksAction()),
             new MenuItem("New folder", null, null, new AddFolderAction()),
             new MenuItem("Delete selected", null, null, new DeleteSelectedAction()),
+            new MenuItem("Cut selected", null, null, new CutSelectedAction()),
+            new MenuItem("Paste item", null, null, new PasteAction()),
             new MenuItem("Sort", null, null, new ShowSortMenuAction()),
             new MenuItem("Export to file", null, null, new BackupAction()),
             new MenuItem("Import from file", null, null, new ImportAction()),

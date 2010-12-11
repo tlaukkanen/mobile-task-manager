@@ -46,6 +46,7 @@ public class Controller {
     private Display display;
     private FolderItem rootFolder;
     private FolderItem currentFolder;
+    private Item cutItem;
     private TaskMenu taskMenu;
 
     private Controller(MIDlet midlet) {
@@ -124,7 +125,12 @@ public class Controller {
 
     public void addItem(String text) {
         TodoItem item = new TodoItem(text);
-        currentFolder.addItem(item);
+        //currentFolder.addItem(item);
+        taskMenu.addItemAfter(item);
+    }
+
+    public void addItemAfter(Item item, int index) {
+        currentFolder.addItemAfter(item, index);
     }
 
     public void showItem(String string) {
@@ -153,7 +159,8 @@ public class Controller {
 
     public void addFolder(String text) {
         FolderItem folder = new FolderItem(text, currentFolder);
-        currentFolder.addItem(folder);
+        //currentFolder.addItem(folder);
+        taskMenu.addItemAfter(folder);
     }
 
     public void showFolder(String string) {
@@ -172,6 +179,33 @@ public class Controller {
         }
         if (index+fix < currentFolder.getItems().size()) {
             currentFolder.getItems().removeElementAt(index+fix);
+        }
+    }
+
+    public void cutSelectedItem() {
+        taskMenu.cutSelected();
+    }
+
+    public void cutSelectedItem(int index) {
+        int fix = 0;
+        if(currentFolder.getParentFolder()!=null) {
+            fix = -1;
+        }
+        if(index+fix-1 < currentFolder.getItems().size()) {
+            Vector items = currentFolder.getItems();
+            cutItem = (Item)items.elementAt(index+fix);
+            items.removeElementAt(index+fix);
+        }
+    }
+
+    public void pasteItem() {
+        taskMenu.pasteItem();
+    }
+
+    public void pasteItem(int index) {
+        if(cutItem != null) {
+            currentFolder.addItemAfter(cutItem, index);
+            cutItem = null;
         }
     }
 
