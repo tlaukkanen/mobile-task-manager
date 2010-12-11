@@ -1,4 +1,4 @@
-﻿#summary Mobile Task Manager — это простой и минималистичный инструмент для [http://ru.wikipedia.org/wiki/GTD GTD], который предназначен для телефонов и устройств, поддерживающих Java.
+﻿#summary Mobile Task Manager — это простой и минималистичный инструмент для <a href="http://ru.wikipedia.org/wiki/GTD">GTD</a>, который предназначен для телефонов и устройств, поддерживающих Java.
 
 = Возможности =
   * создание задач;
