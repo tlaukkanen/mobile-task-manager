@@ -173,6 +173,10 @@ public class Menu {
         return selectedIndex;
     }
 
+    /**
+     * Set selected index.
+     * @param index desired selected index value
+     */
     public void setSelectedIndex(int index) {
         if (index < 0)
             index = 0;

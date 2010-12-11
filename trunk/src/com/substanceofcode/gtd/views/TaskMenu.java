@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2008-2009 Tommi Laukkanen
+ *                    2010 MaximAL
  * http://www.substanceofcode.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -204,6 +205,10 @@ public class TaskMenu extends MenuCanvas {
         }
     }
 
+    /**
+     * Add specified item after selected.
+     * @param item specified item
+     */
     public void addItemAfter(Item item) {
         int index = menu.getSelectedIndex();
         Controller.getInstance().addItemAfter(item, index);
@@ -215,12 +220,18 @@ public class TaskMenu extends MenuCanvas {
         Controller.getInstance().showMainList();
     }
 
+    /**
+     * Cut selected item.
+     */
     public void cutSelected() {
         int index = menu.getSelectedIndex();
         Controller.getInstance().cutSelectedItem( index );
         Controller.getInstance().showMainList();
     }
 
+    /**
+     * Paste item from clipboard
+     */
     public void pasteItem() {
         int index = menu.getSelectedIndex();
         Controller.getInstance().pasteItem( index );

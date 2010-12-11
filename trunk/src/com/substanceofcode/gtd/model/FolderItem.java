@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2008-2009 Tommi Laukkanen
+ *                    2010 MaximAL
  * http://www.substanceofcode.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -74,8 +75,16 @@ public class FolderItem extends Item {
         items.addElement(item);
     }
 
+    /**
+     * Add specified item after index.
+     * @param item specified item
+     * @param index index to set item after
+     */
     public void addItemAfter(Item item, int index) {
-        index++;
+        if(parentFolder == null) {
+            index++;
+        }
+        
         if (index < 0)
             index = 0;
         if (index > items.size())
