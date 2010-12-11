@@ -16,7 +16,7 @@
 
 [http://www.substanceofcode.com/wp-content/uploads/2009/07/gtd-splash.png] [http://www.substanceofcode.com/wp-content/uploads/2009/07/gtd-list.png] [http://www.substanceofcode.com/wp-content/uploads/2009/07/gtd-details.png] [http://www.substanceofcode.com/wp-content/uploads/2009/07/gtd-menu.png]
 
-== Авторы ==
+== Разработчики ==
 Автор: <a href="http://substanceofcode.com/">Tommi Laukkanen</a>
 
 Помогает: <a href="http://maximals.ru/">MaximAL</a>

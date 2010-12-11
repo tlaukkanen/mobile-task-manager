@@ -16,7 +16,7 @@ Screens:
 
 [http://www.substanceofcode.com/wp-content/uploads/2009/07/gtd-splash.png] [http://www.substanceofcode.com/wp-content/uploads/2009/07/gtd-list.png] [http://www.substanceofcode.com/wp-content/uploads/2009/07/gtd-details.png] [http://www.substanceofcode.com/wp-content/uploads/2009/07/gtd-menu.png]
 
-== Author ==
+== Developers ==
 Author: <a href="http://substanceofcode.com/">Tommi Laukkanen</a>
 
 Committer: <a href="http://maximals.ru/">MaximAL</a>
