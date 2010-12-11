@@ -19,4 +19,4 @@ Screens:
 == Author ==
 Author: <a href="http://substanceofcode.com/">Tommi Laukkanen</a>
 
-Comitter: <a href="http://maximals.ru/">MaximAL</a>
+Committer: <a href="http://maximals.ru/">MaximAL</a>
