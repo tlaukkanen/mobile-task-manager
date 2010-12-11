@@ -37,7 +37,7 @@ import javax.microedition.midlet.MIDlet;
 
 /**
  *
- * @author Tommi Laukkanen (tlaukkanen [at] gmail [dot] com) 
+ * @author Tommi Laukkanen (tlaukkanen [at] gmail [dot] com), MaximAL
  */
 public class Controller {
 
@@ -177,31 +177,44 @@ public class Controller {
         if(currentFolder.getParentFolder()!=null) {
             fix = -1;
         }
-        if (index+fix < currentFolder.getItems().size()) {
+        if (index+fix < currentFolder.getItems().size() && index+fix >= 0) {
             currentFolder.getItems().removeElementAt(index+fix);
         }
     }
 
+    /**
+     * Cut selected item
+     */
     public void cutSelectedItem() {
         taskMenu.cutSelected();
     }
 
+    /**
+     * Cut selected item (from specified index)
+     */
     public void cutSelectedItem(int index) {
         int fix = 0;
         if(currentFolder.getParentFolder()!=null) {
             fix = -1;
         }
-        if(index+fix-1 < currentFolder.getItems().size()) {
-            Vector items = currentFolder.getItems();
+
+        Vector items = currentFolder.getItems();
+        if (index+fix < items.size() && index+fix >= 0) {
             cutItem = (Item)items.elementAt(index+fix);
             items.removeElementAt(index+fix);
         }
     }
 
+    /**
+     * Paste item from clipboard
+     */
     public void pasteItem() {
         taskMenu.pasteItem();
     }
 
+    /**
+     * Paste item from clipboard to specified index
+     */
     public void pasteItem(int index) {
         if(cutItem != null) {
             currentFolder.addItemAfter(cutItem, index);
