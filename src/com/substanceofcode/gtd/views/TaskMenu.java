@@ -204,9 +204,26 @@ public class TaskMenu extends MenuCanvas {
         }
     }
 
+    public void addItemAfter(Item item) {
+        int index = menu.getSelectedIndex();
+        Controller.getInstance().addItemAfter(item, index);
+    }
+
     public void deleteSelected() {
         int index = menu.getSelectedIndex();
         Controller.getInstance().deleteSelectedItem( index );
+        Controller.getInstance().showMainList();
+    }
+
+    public void cutSelected() {
+        int index = menu.getSelectedIndex();
+        Controller.getInstance().cutSelectedItem( index );
+        Controller.getInstance().showMainList();
+    }
+
+    public void pasteItem() {
+        int index = menu.getSelectedIndex();
+        Controller.getInstance().pasteItem( index );
         Controller.getInstance().showMainList();
     }
 
