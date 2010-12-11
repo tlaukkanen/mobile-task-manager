@@ -18,4 +18,5 @@
 
 == Авторы ==
 Автор: <a href="http://substanceofcode.com/">Tommi Laukkanen</a>
+
 Помогает: <a href="http://maximals.ru/">MaximAL</a>
