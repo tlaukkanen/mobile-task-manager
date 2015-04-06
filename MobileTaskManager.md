@@ -1,0 +1,20 @@
+## Features ##
+  * Create actions
+  * Edit actions (with 3 key)
+  * Mark action as done (with fire key)
+  * Purge done items
+  * Create folders
+  * You can add notes to actions (with 9 key)
+  * You can rearrange the actions (with left/right keys)
+  * Mark action as favorite (with 7 key)
+  * Change task priority (with 0 key)
+  * etc.
+
+Screens:
+
+![http://www.substanceofcode.com/wp-content/uploads/2009/07/gtd-splash.png](http://www.substanceofcode.com/wp-content/uploads/2009/07/gtd-splash.png) ![http://www.substanceofcode.com/wp-content/uploads/2009/07/gtd-list.png](http://www.substanceofcode.com/wp-content/uploads/2009/07/gtd-list.png) ![http://www.substanceofcode.com/wp-content/uploads/2009/07/gtd-details.png](http://www.substanceofcode.com/wp-content/uploads/2009/07/gtd-details.png) ![http://www.substanceofcode.com/wp-content/uploads/2009/07/gtd-menu.png](http://www.substanceofcode.com/wp-content/uploads/2009/07/gtd-menu.png)
+
+## Developers ##
+Author: <a href='http://substanceofcode.com/'>Tommi Laukkanen</a>
+
+Committer: <a href='http://maximals.ru/'>MaximAL</a>
